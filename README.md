@@ -50,7 +50,7 @@ copy(JSON.parse(localStorage.token).refresh_token); console.log(JSON.parse(local
 
 > 添加订阅后可在定时任务列表发现新增任务, 可自行调整任务执行时间
 ```shell
-ql repo https://github.com/mrabit/aliyundriveDailyCheck.git "autoSignin" "" "qlApi"
+ql repo https://github.com/Stonewuu/aliyundrive_autosign.git "autoSign" "" "qlApi"
 ```
 
 ##### 新版本:
@@ -66,7 +66,7 @@ ql repo https://github.com/mrabit/aliyundriveDailyCheck.git "autoSignin" "" "qlA
 ### 申明
 
 - 本项目仅做学习交流, 禁止用于各种非法途径
-- 项目中的所有内容均源于互联网, 仅限于小范围内学习参考, 如有侵权请第一时间联系 [本项目作者](https://github.com/mrabit) 进行删除
+- 项目中的所有内容均源于互联网, 仅限于小范围内学习参考, 如有侵权请第一时间联系 [本项目作者](https://github.com/stonewuu) 进行删除
 
 ### 鸣谢
 
@@ -74,3 +74,4 @@ ql repo https://github.com/mrabit/aliyundriveDailyCheck.git "autoSignin" "" "qlA
 
 - @Anonym-w: [Anonym-w/autoSigninAliyun](https://github.com/Anonym-w/autoSigninAliyun)
 - @ImYrS: [ImYrS/aliyun-auto-signin](https://github.com/ImYrS/aliyun-auto-signin)
+- @mrabit: [mrabit/aliyundriveDailyCheck](https://github.com/mrabit/aliyundriveDailyCheck)
