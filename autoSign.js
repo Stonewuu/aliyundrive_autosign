@@ -1,5 +1,9 @@
 /*
+阿里云盘自动签到
+使用教程：https://github.com/Stonewuu/aliyundrive_autosign
+
 cron "0 9/1 * * *" autoSignin.js, tag=阿里云盘签到
+const $ = new Env("阿里云盘签到");
 */
 
 const axios = require('axios')
