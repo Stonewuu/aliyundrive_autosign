@@ -17,6 +17,8 @@ const rewardURL =
   'https://member.aliyundrive.com/v1/activity/sign_in_reward?_rx-s=mobile'
 const rewardURLV2 =
   'https://member.aliyundrive.com/v2/activity/sign_in_task_reward?_rx-s=mobile'
+const vipInfoURLV2 =
+  'https://member.aliyundrive.com/v2/activity/vip_day_info'
 const vipRewardURLV2 =
   'https://member.aliyundrive.com/v2/activity/vip_day_reward'
 
@@ -97,16 +99,22 @@ function sign_in(access_token, remarks) {
                   `\n第${signInDay}天任务奖励领取成功: 获得${rewardInfo.name || ''}${rewardInfo.description || ''}，领取要求：${reward.remind}`
                 )
               }
-              if(reward.type === 'vipDay'){
-                // 任务奖励
-                const rewardInfo = await getVipReward(access_token, signInDay)
-                sendMessage.push(
-                  `\n第${signInDay}天VIP日奖励领取成功: 获得${rewardInfo.name || ''}${rewardInfo.description || ''}，领取要求：${reward.remind}`
-                )
-              }
 
             }else{
                 if(signInCount == signInDay){
+                  
+                  if(reward.type === 'vipDay'){
+                    // 任务奖励
+                    const vipInfo = await getVipInfo(access_token, signInDay)
+                    sendMessage.push(
+                      `${JSON.stringify(vipInfo)}`
+                    )
+                    // const rewardInfo = await getVipReward(access_token, signInDay)
+                    sendMessage.push(
+                      `\n第${signInDay}天VIP日奖励领取成功: 获得${rewardInfo.name || ''}${rewardInfo.description || ''}，领取要求：${reward.remind}`
+                    )
+                  }
+
                 // 已完成领取
                     sendMessage.push(
                     `\n第${signInDay}天${reward.type==='dailySignIn'?'签到':'任务'}奖励领取状态：${reward.status === 'verification'? '已领取' : reward.status === 'unfinished'? '任务未完成': reward.status}， 奖励内容：${reward.name || ''}${reward.rewardDesc || ''}，领取要求：${reward.remind}`
@@ -168,6 +176,25 @@ function getTaskReward(access_token, signInDay) {
 // 领取奖励
 function getVipReward(access_token, signInDay) {
   return axios(vipRewardURLV2, {
+    method: 'POST',
+    data: { signInDay },
+    headers: {
+      authorization: access_token,
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(d => d.data)
+    .then(json => {
+      if (!json.success) {
+        return Promise.reject(json.message)
+      }
+
+      return json.result
+    })
+}
+// 领取奖励
+function getVipInfo(access_token, signInDay) {
+  return axios(vipInfoURLV2, {
     method: 'POST',
     data: { signInDay },
     headers: {
