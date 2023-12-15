@@ -111,7 +111,7 @@ function sign_in(access_token, remarks) {
                         const vipReward = await getVipReward(access_token, signInDay)
                         if(vipReward){
                           sendMessage.push(
-                            `\n第${signInDay}天VIP日奖励领取成功: 获得${rewards.name || ''}${rewards.rewardDesc || ''}，领取要求：${reward.remind}`
+                            `\n第${signInDay}天VIP日奖励领取成功: 获得：${reward.name || ''}${reward.rewardDesc || ''}，领取要求：${reward.remind}`
                           )
                         }
                     }
