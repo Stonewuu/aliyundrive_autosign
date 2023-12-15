@@ -17,7 +17,10 @@ const rewardURL =
   'https://member.aliyundrive.com/v1/activity/sign_in_reward?_rx-s=mobile'
 const rewardURLV2 =
   'https://member.aliyundrive.com/v2/activity/sign_in_task_reward?_rx-s=mobile'
+const vipRewardURLV2 =
+  'https://member.aliyundrive.com/v2/activity/vip_day_reward'
 
+  
 // 使用 refresh_token 更新 access_token
 function updateAccesssToken(queryBody, remarks) {
   const errorMessage = [remarks, '更新 access_token 失败']
@@ -94,6 +97,14 @@ function sign_in(access_token, remarks) {
                   `\n第${signInDay}天任务奖励领取成功: 获得${rewardInfo.name || ''}${rewardInfo.description || ''}，领取要求：${reward.remind}`
                 )
               }
+              if(reward.type === 'vipDay'){
+                // 任务奖励
+                const rewardInfo = await getVipReward(access_token, signInDay)
+                sendMessage.push(
+                  `\n第${signInDay}天VIP日奖励领取成功: 获得${rewardInfo.name || ''}${rewardInfo.description || ''}，领取要求：${reward.remind}`
+                )
+              }
+
             }else{
                 if(signInCount == signInDay){
                 // 已完成领取
@@ -137,6 +148,26 @@ function getReward(access_token, signInDay) {
 // 领取奖励
 function getTaskReward(access_token, signInDay) {
   return axios(rewardURLV2, {
+    method: 'POST',
+    data: { signInDay },
+    headers: {
+      authorization: access_token,
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(d => d.data)
+    .then(json => {
+      if (!json.success) {
+        return Promise.reject(json.message)
+      }
+
+      return json.result
+    })
+}
+
+// 领取奖励
+function getVipReward(access_token, signInDay) {
+  return axios(vipRewardURLV2, {
     method: 'POST',
     data: { signInDay },
     headers: {
