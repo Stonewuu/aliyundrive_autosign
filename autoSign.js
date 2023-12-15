@@ -109,7 +109,7 @@ function sign_in(access_token, remarks) {
                     sendMessage.push(
                       `\n${JSON.stringify(vipInfo)}`
                     )
-                    if(isVip){
+                    if(vipInfo.isVip){
                         const vipReward = await getVipReward(access_token, signInDay)
                         sendMessage.push(
                           `\n${JSON.stringify(vipReward)}`
