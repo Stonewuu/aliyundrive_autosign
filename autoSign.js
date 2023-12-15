@@ -107,8 +107,14 @@ function sign_in(access_token, remarks) {
                     // 任务奖励
                     const vipInfo = await getVipInfo(access_token, signInDay)
                     sendMessage.push(
-                      `${JSON.stringify(vipInfo)}`
+                      `\n${JSON.stringify(vipInfo)}`
                     )
+                    if(isVip){
+                        const vipReward = await getVipReward(access_token, signInDay)
+                        sendMessage.push(
+                          `\n${JSON.stringify(vipReward)}`
+                        )
+                    }
                     // const rewardInfo = await getVipReward(access_token, signInDay)
                     sendMessage.push(
                       `\n第${signInDay}天VIP日奖励领取成功: 获得${rewardInfo.name || ''}${rewardInfo.description || ''}，领取要求：${reward.remind}`
