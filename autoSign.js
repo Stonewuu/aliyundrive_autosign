@@ -106,17 +106,14 @@ function sign_in(access_token, remarks) {
                   if(reward.type === 'vipDay'){
                     // 任务奖励
                     const vipInfo = await getVipInfo(access_token, signInDay)
-                    sendMessage.push(
-                      `\n${JSON.stringify(vipInfo)}`
-                    )
+
                     if(vipInfo.isVip){
                         const vipReward = await getVipReward(access_token, signInDay)
-                        sendMessage.push(
-                          `\n${JSON.stringify(vipReward)}`
-                        )
-                        // sendMessage.push(
-                        //   `\n第${signInDay}天VIP日奖励领取成功: 获得${vipReward.name || ''}${vipReward.description || ''}，领取要求：${reward.remind}`
-                        // )
+                        if(vipReward){
+                          sendMessage.push(
+                            `\n第${signInDay}天VIP日奖励领取成功: 获得${rewards.name || ''}${rewards.rewardDesc || ''}，领取要求：${reward.remind}`
+                          )
+                        }
                     }
                     
                   }
