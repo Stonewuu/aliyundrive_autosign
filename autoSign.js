@@ -114,11 +114,11 @@ function sign_in(access_token, remarks) {
                         sendMessage.push(
                           `\n${JSON.stringify(vipReward)}`
                         )
+                        // sendMessage.push(
+                        //   `\n第${signInDay}天VIP日奖励领取成功: 获得${vipReward.name || ''}${vipReward.description || ''}，领取要求：${reward.remind}`
+                        // )
                     }
-                    // const rewardInfo = await getVipReward(access_token, signInDay)
-                    sendMessage.push(
-                      `\n第${signInDay}天VIP日奖励领取成功: 获得${rewardInfo.name || ''}${rewardInfo.description || ''}，领取要求：${reward.remind}`
-                    )
+                    
                   }
 
                 // 已完成领取
